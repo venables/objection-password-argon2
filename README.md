@@ -1,4 +1,4 @@
-# Automatic Argon2 Password Hashing for Objection.js [![Build Status](https://travis-ci.org/scoutforpets/objection-password.svg?branch=master)](https://travis-ci.org/scoutforpets/objection-password)
+# Automatic Argon2 Password Hashing for Objection.js [![Build Status](https://travis-ci.org/venables/objection-password-argon2.svg?branch=master)](https://travis-ci.org/venables/objection-password-argon2)
 
 This plugin automatically adds automatic password hashing to your [Objection.js](https://github.com/Vincit/objection.js/) models. This makes it super-easy to secure passwords and other sensitive data.
 
