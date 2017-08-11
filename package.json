@@ -1,23 +1,27 @@
 {
-  "name": "objection-password",
-  "version": "0.1.1",
-  "description": "Automatic bcrypt hashing for Objection.js",
-  "main": "index.js",
+  "name": "objection-password-argon2",
+  "version": "1.0.0",
+  "description": "Automatic argon2 hashing for Objection.js",
+  "main": "lib/index.js",
   "scripts": {
+    "lint": "eslint .",
     "test": "ava"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/scoutforpets/objection-password.git"
+    "url": "git+https://github.com/venables/objection-password-argon2.git"
   },
-  "author": "James Dixon <jim.w.dixon@gmail.com>",
+  "author": "Matt Venables <mattvenables@gmail.com>",
+  "contributors": [
+    "James Dixon <jim.w.dixon@gmail.com>"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/scoutforpets/objection-password/issues"
+    "url": "https://github.com/venables/objection-password-argon2/issues"
   },
-  "homepage": "https://github.com/scoutforpets/objection-password#readme",
+  "homepage": "https://github.com/venables/objection-password-argon2#readme",
   "dependencies": {
-    "bcrypt": "^1.0.2"
+    "argon2": "^0.16.1"
   },
   "devDependencies": {
     "ava": "^0.19.1",

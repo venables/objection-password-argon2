@@ -1,8 +1,8 @@
 'use strict';
 
-import test from 'ava';
+const test = require('ava');
 
-const Bcrypt = require('../index')();
+const Argon2 = require('..')();
 const Knex = require('knex');
 const Model = require('objection').Model;
 
@@ -18,7 +18,7 @@ const knex = Knex({
 Model.knex(knex);
 
 // objection models
-class Dog extends Bcrypt(Model) {
+class Dog extends Argon2(Model) {
     static get tableName() {
         return 'dog';
     }
@@ -63,9 +63,9 @@ test('do not allow empty password', async (t) => {
 
 test('allow empty password', async (t) => {
 
-    const BcryptWithOptions = require('../index')({ allowEmptyPassword: true });
+    const Argon2WithOptions = require('../')({ allowEmptyPassword: true });
 
-    class Mouse extends BcryptWithOptions(Model) {
+    class Mouse extends Argon2WithOptions(Model) {
         static get tableName() {
             return 'mouse';
         }
@@ -84,18 +84,18 @@ test('allow empty password', async (t) => {
 });
 
 
-test('throws an error when attempting to hash a bcrypt hash', async (t) => {
-    const dog = Dog.query().insert({ name: 'JJ', password: '$2a$12$sWSdI13BJ5ipPca/f8KTF.k4eFKsUtobfWdTBoQdj9g9I8JfLmZty' });
+test('throws an error when attempting to hash a argon2 hash', async (t) => {
+    const dog = Dog.query().insert({ name: 'JJ', password: '$argon2i$v=19$m=4096,t=3,p=1$yqdvmjCHT1o+03hbpFg7HQ$Vg3+D9kW9+Nm0+ukCzKNWLb0h8iPQdTkD/HYHrxInhA' });
     const error = await t.throws(dog);
-    t.is(error.message, 'bcrypt tried to hash another bcrypt hash');
+    t.is(error.message, 'Argon2 tried to hash another argon2 hash');
 });
 
 
 test('can override default password field', async (t) => {
 
-    const BcryptWithOptions = require('../index')({ passwordField: 'hash' });
+    const Argon2WithOptions = require('../')({ passwordField: 'hash' });
 
-    class Cat extends BcryptWithOptions(Model) {
+    class Cat extends Argon2WithOptions(Model) {
         static get tableName() {
             return 'cat';
         }
