@@ -1,6 +1,6 @@
 {
   "name": "objection-password-argon2",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Automatic argon2 hashing for Objection.js",
   "main": "lib/index.js",
   "scripts": {
@@ -24,12 +24,12 @@
     "argon2": "^0.16.1"
   },
   "devDependencies": {
-    "ava": "^0.19.1",
-    "eslint": "^3.19.0",
-    "eslint-config-hapi": "^10.0.0",
+    "ava": "^0.25.0",
+    "eslint": "^4.4.1",
+    "eslint-config-hapi": "^11.1.0",
     "eslint-plugin-hapi": "^4.0.0",
-    "knex": "^0.13.0",
-    "objection": "^0.8.2",
-    "sqlite3": "^3.1.8"
+    "knex": "^0.14.4",
+    "objection": "^1.0.0",
+    "sqlite3": "^3.1.9"
   }
 }

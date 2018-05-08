@@ -52,6 +52,15 @@ test('creates new hash when updating password', async (t) => {
     t.true(await updatedDog.verifyPassword(updated));
 });
 
+test('ignores hashing password field when patching a record where password isn\'t updated', async (t) => {
+    const dog = await Dog.query().insert({ name: 'JJ', password: 'Turtle123!' });
+
+    // update name only
+    await dog.$query().patchAndFetchById(dog.id, { name: 'Jumbo Jet' });
+
+    t.pass();
+});
+
 
 test('do not allow empty password', async (t) => {
     const password = '';
@@ -87,7 +96,7 @@ test('allow empty password', async (t) => {
 test('throws an error when attempting to hash a argon2 hash', async (t) => {
     const dog = Dog.query().insert({ name: 'JJ', password: '$argon2i$v=19$m=4096,t=3,p=1$yqdvmjCHT1o+03hbpFg7HQ$Vg3+D9kW9+Nm0+ukCzKNWLb0h8iPQdTkD/HYHrxInhA' });
     const error = await t.throws(dog);
-    t.is(error.message, 'Argon2 tried to hash another argon2 hash');
+    t.is(error.message, 'Argon2 tried to hash another Argon2 hash');
 });
 
 
