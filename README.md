@@ -18,7 +18,7 @@ Under the hood, the plugin uses [Argon2](https://en.wikipedia.org/wiki/Argon2) f
 
 ```js
 // import the plugin
-const Password = require('objection-password')();
+const Password = require('objection-password-argon2')();
 const Model = require('objection').Model;
 
 // mixin the plugin
@@ -58,7 +58,7 @@ These options can be added when instantiating the plugin. For example:
 
 ```js
 // import the plugin
-const Password = require('objection-password')({
+const Password = require('objection-password-argon2')({
     passwordField: 'hash'
 });
 ```
