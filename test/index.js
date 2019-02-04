@@ -61,8 +61,9 @@ test('ignores hashing password field when patching a record where password isn\'
 
 test('do not allow empty password', async (t) => {
   const password = ''
-  const dog = Dog.query().insert({ name: 'JJ', password })
-  const error = await t.throws(dog)
+  const error = await t.throwsAsync(() => {
+      return Dog.query().insert({ name: 'JJ', password })
+  })
   t.is(error.message, 'password must not be empty')
 })
 
@@ -88,8 +89,9 @@ test('allow empty password', async (t) => {
 })
 
 test('throws an error when attempting to hash a argon2 hash', async (t) => {
-  const dog = Dog.query().insert({ name: 'JJ', password: '$argon2i$v=19$m=4096,t=3,p=1$yqdvmjCHT1o+03hbpFg7HQ$Vg3+D9kW9+Nm0+ukCzKNWLb0h8iPQdTkD/HYHrxInhA' })
-  const error = await t.throws(dog)
+  const error = await t.throwsAsync(() => {
+      return Dog.query().insert({ name: 'JJ', password: '$argon2i$v=19$m=4096,t=3,p=1$yqdvmjCHT1o+03hbpFg7HQ$Vg3+D9kW9+Nm0+ukCzKNWLb0h8iPQdTkD/HYHrxInhA' })
+  })
   t.is(error.message, 'Argon2 tried to hash another Argon2 hash')
 })
 
@@ -113,4 +115,12 @@ test('can override default password field', async (t) => {
 
   t.truthy(cat.hash)
   t.true(await cat.verifyPassword(password))
+})
+
+test('allows verifying two password strings', async (t) => {
+    let matches = await Dog.verifyPassword('test', 'test')
+    t.truthy(matches)
+
+    matches = await Dog.verifyPassword('test', 'not-the-same')
+    t.falsy(matches);
 })
