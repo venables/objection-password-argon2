@@ -1,6 +1,6 @@
 {
   "name": "objection-password-argon2",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Automatic argon2 hashing for Objection.js",
   "main": "lib/index.js",
   "scripts": {
