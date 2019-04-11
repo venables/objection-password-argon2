@@ -4,8 +4,3 @@ node_js:
   - '9'
   - '10'
   - '11'
-
-sudo: required
-
-before_install:
-  - npm install -g node-gyp
