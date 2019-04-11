@@ -2,10 +2,17 @@
   "name": "objection-password-argon2",
   "version": "2.1.0",
   "description": "Automatic argon2 hashing for Objection.js",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
-    "lint": "eslint .",
-    "test": "nyc ava"
+    "build": "tsc",
+    "format": "yarn lint --fix",
+    "lint": "eslint . --ext .ts,.js --ignore-path .gitignore",
+    "prepare": "yarn build",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -21,14 +28,25 @@
   },
   "homepage": "https://github.com/venables/objection-password-argon2#readme",
   "dependencies": {
-    "argon2": "^0.20.1"
+    "argon2": "^0.21.0"
   },
   "devDependencies": {
-    "ava": "^1.2.0",
+    "@types/jest": "^24.0.11",
+    "@types/node": "^11.13.4",
+    "@typescript-eslint/eslint-plugin": "^1.6.0",
+    "@typescript-eslint/parser": "^1.6.0",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "jest": "^24.7.1",
     "knex": "^0.16.3",
-    "nyc": "^13.1.0",
-    "objection": "^1.5.3",
+    "objection": "^1.6.7",
     "sqlite3": "^4.0.6",
-    "standard": "^12.0.1"
+    "standard": "^12.0.1",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.4.3"
   }
 }

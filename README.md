@@ -6,10 +6,6 @@ Under the hood, the plugin uses [Argon2](https://en.wikipedia.org/wiki/Argon2) f
 
 ## Installation
 
-### NPM
-`npm i objection-password-argon2`
-
-### Yarn
 `yarn add objection-password-argon2`
 
 ## Usage
@@ -17,20 +13,16 @@ Under the hood, the plugin uses [Argon2](https://en.wikipedia.org/wiki/Argon2) f
 ### Hashing your data
 
 ```js
-// import the plugin
-const Password = require('objection-password-argon2')();
-const Model = require('objection').Model;
+import Password from 'objection-password-argon2'
+import Model from 'objection'
 
-// mixin the plugin
-class Person extends Password(Model) {
-    static get tableName() {
-        return 'person';
-    }
+class Person extends Password()(Model) {
+  // ...
 }
 
 const person = await Person.query().insert({
-    email: 'matt@damon.com',
-    password: 'q1w2e3r4'
+  email: 'matt@damon.com',
+  password: 'q1w2e3r4'
 });
 
 console.log(person.password);
@@ -38,6 +30,7 @@ console.log(person.password);
 ```
 
 ### Verifying the data
+
 ```js
 // the password to verify
 const password = 'q1w2e3r4';
@@ -57,10 +50,11 @@ There are a few options you can pass to customize the way the plugin works.
 These options can be added when instantiating the plugin. For example:
 
 ```js
-// import the plugin
-const Password = require('objection-password-argon2')({
-    passwordField: 'hash'
-});
+import Password from 'objection-password-argon2'
+
+class Person extends Password({ passwordField: 'hash' })(Model) {
+  // ...
+}
 ```
 
 #### `allowEmptyPassword` (defaults to `false`)
