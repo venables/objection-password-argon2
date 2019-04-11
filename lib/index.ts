@@ -1,4 +1,4 @@
-import { Model, ModelOptions, QueryContext, Plugin } from 'objection'
+import { Model, ModelOptions, QueryContext } from 'objection'
 import Argon2 from 'argon2'
 
 interface Options {
@@ -11,8 +11,8 @@ const DEFAULT_OPTIONS: Options = {
   passwordField: 'password'
 }
 
-export default function objectionPasswordArgon2 (options: Options = DEFAULT_OPTIONS) {
-  return ((ModelClass: typeof Model) => {
+export default function objectionPasswordArgon2 (options: Options = DEFAULT_OPTIONS): Function {
+  return (ModelClass: typeof Model) => {
     return class extends ModelClass {
       /**
        * Detect rehashing for avoiding undesired effects
@@ -89,7 +89,7 @@ export default function objectionPasswordArgon2 (options: Options = DEFAULT_OPTI
         return this[options.passwordField]
       }
     }
-  }) as Plugin
+  }
 }
 
 function isArgonHash (str: string) {
