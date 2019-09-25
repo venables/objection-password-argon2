@@ -1,9 +1,14 @@
 import { Model, ModelOptions, QueryContext } from 'objection'
 import Argon2 from 'argon2'
 
-interface Options {
+interface Configuration {
   allowEmptyPassword?: boolean;
   passwordField?: string;
+}
+
+interface Options {
+  allowEmptyPassword: boolean;
+  passwordField: string;
 }
 
 const DEFAULT_OPTIONS: Options = {
@@ -11,7 +16,9 @@ const DEFAULT_OPTIONS: Options = {
   passwordField: 'password'
 }
 
-export default function objectionPasswordArgon2 (options: Options = DEFAULT_OPTIONS): Function {
+export default function objectionPasswordArgon2 (configuration: Configuration): Function {
+  const options: Options = Object.assign({}, DEFAULT_OPTIONS, configuration)
+
   return (ModelClass: typeof Model) => {
     return class extends ModelClass {
       /**

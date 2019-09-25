@@ -28,24 +28,24 @@
   },
   "homepage": "https://github.com/venables/objection-password-argon2#readme",
   "dependencies": {
-    "argon2": "^0.21.0"
+    "argon2": "^0.24.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
-    "@types/node": "^11.13.4",
-    "@typescript-eslint/eslint-plugin": "^1.6.0",
-    "@typescript-eslint/parser": "^1.6.0",
-    "eslint": "^5.16.0",
-    "eslint-config-standard": "^12.0.0",
+    "@types/node": "^12.7.7",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "@typescript-eslint/parser": "^2.3.1",
+    "eslint": "^6.4.0",
+    "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
     "jest": "^24.7.1",
-    "knex": "^0.16.3",
+    "knex": "^0.19.4",
     "objection": "^1.6.7",
     "sqlite3": "^4.0.6",
-    "standard": "^12.0.1",
+    "standard": "^14.3.1",
     "ts-jest": "^24.0.2",
     "typescript": "^3.4.3"
   }
