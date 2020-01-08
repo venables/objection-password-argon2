@@ -16,7 +16,9 @@ const DEFAULT_OPTIONS: Options = {
   passwordField: 'password'
 }
 
-export default function objectionPasswordArgon2(configuration: Configuration = {}): Function {
+export default function objectionPasswordArgon2 (
+  configuration: Configuration = {}
+): Function {
   const options: Options = Object.assign({}, DEFAULT_OPTIONS, configuration)
 
   return (ModelClass: typeof Model) => {
@@ -24,16 +26,8 @@ export default function objectionPasswordArgon2(configuration: Configuration = {
       /**
        * Detect rehashing for avoiding undesired effects
        */
-      public static isArgonHash(str: string): boolean {
+      public static isArgonHash (str: string): boolean {
         return isArgonHash(str)
-      }
-
-      /**
-       * Compares a password to an Argon2 hash
-       */
-      public static async verifyPassword(password: string, otherPassword: string): Promise<boolean> {
-        const hash = await Argon2.hash(password)
-        return Argon2.verify(hash, otherPassword)
       }
 
       public async $beforeInsert(context: QueryContext) {
@@ -42,7 +36,10 @@ export default function objectionPasswordArgon2(configuration: Configuration = {
         return this.generateHash()
       }
 
-      public async $beforeUpdate(opt: ModelOptions, queryContext: QueryContext) {
+      public async $beforeUpdate (
+        opt: ModelOptions,
+        queryContext: QueryContext
+      ) {
         await super.$beforeUpdate(opt, queryContext)
 
         if (opt.patch && this.getPasswordHash() === undefined) {
@@ -55,7 +52,7 @@ export default function objectionPasswordArgon2(configuration: Configuration = {
       /**
        * Compares a password to an Argon2 hash
        */
-      public async verifyPassword(password: string): Promise<boolean> {
+      public async verifyPassword (password: string): Promise<boolean> {
         const hash = this.getPasswordHash()
 
         if (!hash) {
@@ -68,7 +65,7 @@ export default function objectionPasswordArgon2(configuration: Configuration = {
       /**
        * Generates an Argon2 hash
        */
-      private async generateHash() {
+      private async generateHash () {
         const password = this.getPasswordHash()
 
         if (password && password.length > 0) {
@@ -86,12 +83,12 @@ export default function objectionPasswordArgon2(configuration: Configuration = {
         }
       }
 
-      private setPasswordHash(hash: string) {
+      private setPasswordHash (hash: string) {
         // @ts-ignore
         this[options.passwordField] = hash
       }
 
-      private getPasswordHash(): string | null | undefined {
+      private getPasswordHash (): string | null | undefined {
         // @ts-ignore
         return this[options.passwordField]
       }
@@ -99,7 +96,23 @@ export default function objectionPasswordArgon2(configuration: Configuration = {
   }
 }
 
-function isArgonHash(str: string) {
+export function isArgonHash(str: string) {
   const ARGON2_REGEXP = /^\$argon/
   return ARGON2_REGEXP.test(str)
+}
+
+/**
+ * Generates an Argon2 hash from a string
+ */
+export async function generatePasswordHash (password: string): Promise<string> {
+  const hash = Argon2.hash(password)
+  return hash
+}
+
+/**
+ * Compares a password to an Argon2 hash
+ */
+export async function verifyPassword (password: string, otherPassword: string): Promise<boolean> {
+  const hash = await Argon2.hash(password)
+  return Argon2.verify(hash, otherPassword)
 }
