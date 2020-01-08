@@ -30,7 +30,7 @@ export default function objectionPasswordArgon2 (
         return isArgonHash(str)
       }
 
-      public async $beforeInsert (context: QueryContext) {
+      public async $beforeInsert(context: QueryContext) {
         await super.$beforeInsert(context)
 
         return this.generateHash()
@@ -96,7 +96,7 @@ export default function objectionPasswordArgon2 (
   }
 }
 
-export function isArgonHash (str: string) {
+export function isArgonHash(str: string) {
   const ARGON2_REGEXP = /^\$argon/
   return ARGON2_REGEXP.test(str)
 }
@@ -112,10 +112,7 @@ export async function generatePasswordHash (password: string): Promise<string> {
 /**
  * Compares a password to an Argon2 hash
  */
-export async function verifyPassword (
-  password: string,
-  otherPassword: string
-): Promise<boolean> {
+export async function verifyPassword (password: string, otherPassword: string): Promise<boolean> {
   const hash = await Argon2.hash(password)
   return Argon2.verify(hash, otherPassword)
 }

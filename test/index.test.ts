@@ -1,8 +1,4 @@
-import ObjectionPassword, {
-  generatePasswordHash,
-  isArgonHash,
-  verifyPassword
-} from '../lib/index'
+import ObjectionPassword, { verifyPassword, generatePasswordHash, isArgonHash } from '../lib/index'
 import Knex from 'knex'
 import { Model } from 'objection'
 
