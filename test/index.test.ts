@@ -1,4 +1,4 @@
-import ObjectionPassword from '../lib/index'
+import ObjectionPassword, { verifyPassword, generatePasswordHash, isArgonHash } from '../lib/index'
 import Knex from 'knex'
 import { Model } from 'objection'
 
@@ -112,7 +112,13 @@ test('can override default password field', async () => {
 })
 
 test('allows verifying two password strings', async () => {
-  expect(await Dog.verifyPassword('test', 'test')).toBeTruthy()
+  expect(await verifyPassword('test', 'test')).toBeTruthy()
 
-  expect(await Dog.verifyPassword('test', 'not-the-same')).toBeFalsy()
+  expect(await verifyPassword('test', 'not-the-same')).toBeFalsy()
+})
+
+test('allows creating password using argon2', async () => {
+  const password = await generatePasswordHash('password')
+  const validPassword = isArgonHash(password)
+  expect(validPassword).toBeTruthy()
 })
